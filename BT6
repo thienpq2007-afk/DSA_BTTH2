@@ -1,0 +1,94 @@
+#include<iostream>
+using namespace std;
+
+void Nhap(int A[], int& n)
+{
+	cin >> n;
+	for (int i = 0; i < n; i++)
+		cin >> A[i];
+}
+
+void XuatMang(int A[], int n)
+{
+	for (int i = 0; i < n; i++)
+		cout << A[i] << " ";
+	cout << "\n";
+}
+
+void Merge(int A[], int left, int mid, int right)
+{
+	int i = left, j = mid + 1;
+	int temp[1000];
+	int k = 0;
+
+	while (i <= mid && j <= right)
+	{
+		if (A[i] >= A[j]) // giảm dần
+			temp[k++] = A[i++];
+		else
+			temp[k++] = A[j++];
+	}
+
+	while (i <= mid) temp[k++] = A[i++];
+	while (j <= right) temp[k++] = A[j++];
+
+	for (int t = 0; t < k; t++)
+		A[left + t] = temp[t];
+}
+
+void MergeSortK(int A[], int n)
+{
+	for (int k = 1; k < n; k *= 2)
+	{
+		cout << "k = " << k << "\n";
+
+		cout << "Mang A (truoc khi chia): ";
+		XuatMang(A, n);
+
+		// In B và C
+		cout << "Mang B: ";
+		for (int i = 0; i < n; i += 2 * k)
+			for (int j = i; j < i + k && j < n; j++)
+				cout << A[j] << " ";
+		cout << "\n";
+
+		cout << "Mang C: ";
+		for (int i = 0; i < n; i += 2 * k)
+			for (int j = i + k; j < i + 2 * k && j < n; j++)
+				cout << A[j] << " ";
+		cout << "\n";
+
+		// merge từng cặp
+		for (int i = 0; i < n; i += 2 * k)
+		{
+			int left = i;
+			int mid = min(i + k - 1, n - 1);
+			int right = min(i + 2 * k - 1, n - 1);
+
+			if (mid < right)
+				Merge(A, left, mid, right);
+		}
+
+		cout << "Mang A (sau khi gop): ";
+		XuatMang(A, n);
+		cout << "\n";
+	}
+}
+
+int main()
+{
+	int A[1000], n;
+
+	Nhap(A, n);
+
+	cout << "Mang truoc khi sap xep:\n";
+	XuatMang(A, n);
+
+	cout << "\nSap xep:\n";
+	MergeSortK(A, n);
+
+	cout << "Mang sau khi sap xep:\n";
+	XuatMang(A, n);
+
+	return 0;
+}
