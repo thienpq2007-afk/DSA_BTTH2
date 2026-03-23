@@ -1,0 +1,52 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+void Nhap(int A[], int& n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		cin >> A[i];
+	}
+}
+
+// Binary Search
+bool BinarySearch(int A[], int n, int x)
+{
+	int left = 0, right = n - 1;
+	while (left <= right)
+	{
+		int mid = (left + right) / 2;
+		if (A[mid] == x)
+			return true;
+		else if (A[mid] < x)
+			left = mid + 1;
+		else
+			right = mid - 1;
+	}
+	return false;
+}
+
+void Check(int A[], int n, int B[], int m)
+{
+	for (int i = 0; i < m; i++)
+	{
+		if (BinarySearch(A, n, B[i]))
+			cout << "YES\n";
+		else
+			cout << "NO\n";
+	}
+}
+
+int main()
+{
+	int A[100000];
+	int B[100000];
+	int n, m;
+	cin >> n >> m;
+	Nhap(A, n);
+	sort(A, A + n);
+	Nhap(B, m);
+	Check(A, n, B, m);
+	return 0;
+}
