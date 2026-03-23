@@ -1,0 +1,51 @@
+#include<iostream>
+using namespace std;
+
+void Nhap(int A[], int& n)
+{
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> A[i];
+	}
+}
+
+void BinarySearch(int A[], int n, int x)
+{
+	int left = 0, right = n - 1;
+	int dem = 0;
+	int note = -1;
+	while (left <= right)
+	{
+		dem++;
+		int mid = (left + right) / 2;
+		if (A[mid] == x)
+		{
+			note = mid;
+			break;
+		}
+		else if (A[mid] < x)
+			left = mid + 1;
+		else
+			right = mid - 1;
+	}
+	if (note != -1)
+	{
+		cout << note << "\n" << dem;
+	}
+	else
+	{
+		cout << -1;
+	}
+}
+
+int main()
+{
+	int A[32001];
+	int n;
+	int x;
+	Nhap(A, n);
+	cin >> x;
+	BinarySearch(A, n, x);
+	return 0;
+}
