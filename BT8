@@ -1,0 +1,88 @@
+#include <iostream>
+using namespace std;
+
+void Input(int*& a, int& n)
+{
+    cin >> n;
+    a = new int[n];
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+}
+
+void Output(int* a, int n) {
+    for (int i = 0; i < n; i++)
+        cout << a[i] << " ";
+    cout << "\n";
+}
+
+void Xuat(int *A, int n, int heapSize)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (i == heapSize)
+            cout << "| ";
+        cout << A[i] << " ";
+    }
+    cout << endl;
+}
+
+void heapify(int* A, int i, int n) {
+    int j = 2 * i + 1;
+    while (j < n) {
+        if (j + 1 < n && A[j] > A[j + 1])
+            j++;
+        if (A[j] > A[i])
+            return;
+        swap(A[i], A[j]);
+        i = j;
+        j = 2 * i + 1;
+    }
+}
+
+void buildHeap(int* A, int n) {
+    int i = (n - 1) / 2;
+    while (i >= 0) {
+        heapify(A, i, n);
+        i--;
+    }
+}
+
+
+void HeapSort(int* A, int n) {
+    int n_start = n;
+    cout << "Mang sau khi BuildHeap: ";
+    buildHeap(A, n);
+    Output(A, n);
+    cout << "Swap " << A[0] << " va " << A[n - 1] << "\n";
+    while (n > 1) {
+        swap(A[0], A[n - 1]);
+        n--;
+        cout << "Mang sau khi heapify voi n = " << n << ": ";
+        heapify(A, 0, n);
+        Xuat(A, n_start, n);
+        if (n != 1)
+        {
+            cout << "Swap " << A[0] << " va " << A[n - 1] << "\n";
+        }
+        cout << "\n";
+    }
+}
+
+int main() {
+    int* A;
+    int n;
+    Input(A, n);
+
+    cout << "Mang truoc khi sap xep:\n";
+    Output(A, n);
+
+    cout << "Sap xep:\n";
+    HeapSort(A, n);
+
+    cout << "Mang sau khi sap xep:\n";
+    Output(A, n);
+
+    return 0;
+}
