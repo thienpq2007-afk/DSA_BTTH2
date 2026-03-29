@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+void Input(int *&a, int &n)
+{
+    cin >> n;
+    a = new int [n];
+    for(int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+}
+
+void Output(int *a, int n)
+{
+    for (int i = 0; i < n; i++)
+        cout << a[i] << " ";
+    cout << "\n";
+}
+
+void QuickSort(int *a, int l, int r, int n)
+{
+    if (l >= r)
+    {
+        return;
+    }
+    else
+    {
+        cout << "Truoc: ";
+        Output(a, n);
+    }
+    int x = a[(l+r)/2];
+    int i = l, j = r;
+    cout << "Left=" << l << " - " << "Right=" << r << " - " << "Pivot=" << a[(l + r) / 2] << "\n";
+    bool check_swap = false;
+    while(i < j)
+    {
+        while (a[i] > x) i++;
+        while (a[j] < x) j--;
+        if (i <= j) {
+            swap(a[i], a[j]);
+            check_swap = true;
+            i++;
+            j--;
+        }
+    }
+    if(true)
+    {
+        cout << "Sau: ";
+    }
+    Output(a, n);
+    QuickSort(a, l, j, n);
+    QuickSort(a, i, r, n);
+}
+
+int main() 
+{
+    int *A;
+    int n;
+    Input(A, n);
+
+    cout << "Mang truoc khi sap xep:\n";
+    Output(A, n);
+
+    cout << "Sap xep:\n";
+    QuickSort(A, 0, n - 1, n);
+
+    cout << "Mang sau khi sap xep:\n";
+    Output(A, n);
+
+    return 0;
+}
