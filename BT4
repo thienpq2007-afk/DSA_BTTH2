@@ -1,0 +1,45 @@
+int Compare(Hocsinh a, Hocsinh b)
+{
+    // So Ten
+    if (a.Ten != b.Ten)
+        return (a.Ten < b.Ten) ? -1 : 1;
+
+    // So Ho dem
+    if (a.Hodem != b.Hodem)
+        return (a.Hodem < b.Hodem) ? -1 : 1;
+
+    // So tuoi (tre hon thi "nho hon")
+    if (a.Nam != b.Nam)
+        return (a.Nam > b.Nam) ? -1 : 1;
+
+    if (a.Thang != b.Thang)
+        return (a.Thang > b.Thang) ? -1 : 1;
+
+    if (a.Ngay != b.Ngay)
+        return (a.Ngay > b.Ngay) ? -1 : 1;
+
+    return 0;
+}
+
+int BSearch(Hocsinh A[], int n, Hocsinh x)
+{
+    int left = 0, right = n - 1;
+    int count = 0;
+
+    while (left <= right)
+    {
+        count++; // mỗi lần xét 1 khóa
+
+        int mid = (left + right) / 2;
+        int cmp = Compare(A[mid], x);
+
+        if (cmp == 0)
+            return count;
+        else if (cmp < 0)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+
+    return 0;
+}
